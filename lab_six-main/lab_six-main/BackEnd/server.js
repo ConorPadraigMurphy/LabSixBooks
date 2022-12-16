@@ -65,6 +65,13 @@ app.get('/api/books', (req, res) => {
   })
 })
 
+app.delete('/api/book/:id', (req, res) => {
+  console.log('Deleting: ' + req.params.id);
+  bookModel.findByIdAndDelete({ _id: req.params.id }, (error, data) => {
+    res.send(data);
+  })
+})
+
 app.get("/api/book/:id", (req, res) => {
   console.log(req.params.id);
   bookModel.findById(req.params.id, (error, data) => {
@@ -86,9 +93,9 @@ app.put('/api/book/:id', function (req, res) {
 
 //add at the bottom just over app.listen
 // Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname+'/../build/index.html'));
-  });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../build/index.html'));
+});
 
 
 app.listen(port, () => {
